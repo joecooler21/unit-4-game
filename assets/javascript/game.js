@@ -1,14 +1,20 @@
 var fighterSelected = false;
 var enemySelected = false;
+var baseAtk = 0;
+var playerDied = false;
+var playerWin = false;
 
 var currentFighter, currentEnemy;
+var enemiesLeft = 3;
 
 var richter = {
     id: "#richter",
     path: "assets/images/richter.jpg",
     name: "Richter",
     attackName: ["vampire killer", "hydro storm", "blade dash"],
-    hp: 100
+    attackPower: 20,
+    counterAttackPower: 30,
+    hp: 210
 };
 
 var alucard = {
@@ -16,7 +22,9 @@ var alucard = {
     path: "assets/images/alucard.jpg",
     name: "Alucard",
     attackName: ["alucard sword", "soul steal", "bat form"],
-    hp: 100
+    attackPower: 25,
+    counterAttackPower: 25,
+    hp: 220
 };
 
 var death = {
@@ -24,26 +32,84 @@ var death = {
     path: "assets/images/death.jpg",
     name: "Death",
     attackName: ["scythe", "flaming skull", "dark energy beam"],
-    hp: 100
+    attackPower: 25,
+    counterAttackPower: 15,
+    hp: 245
 };
 
 var dracula = {
     id: "#dracula",
     path: "assets/images/dracula.jpg",
     name: "Dracula",
-    attackName: ["fireball", "bat form", "dragon form"],
-    hp: 100
+    attackName: ["bat form", "fireball", "dragon form"],
+    attackPower: 35,
+    counterAttackPower: 35,
+    hp: 180
 };
+
+
 
 /* main game code *******************************************/
 
 $(".game-hud").on("click", "#atk-btn", function () {
-    alert ("attack: " + currentFighter.attackName[rand(0, 2)] + " counterattack: " + currentEnemy.attackName[rand(0, 2)]);
+
+    if (playerDied || playerWin) {
+        location.reload();
+        return;
+    }
+
+    if (!enemySelected) {
+        return;
+    }
+
+    var fighterAtk = rand(0, 2);
+    var enemyAtk = rand(0, 2);
+    var enemyDmg = currentEnemy.counterAttackPower;
+    var fighterDmg = currentFighter.attackPower;
+
+    var fighterStr = currentFighter.name + " hits " + currentEnemy.name + " with " + currentFighter.attackName[fighterAtk] + " for " + fighterDmg + " damage.";
+    var enemyStr = currentEnemy.name + " counter-attacks with " + currentEnemy.attackName[enemyAtk] + " for " + enemyDmg + " damage.";
+
+    currentFighter.hp -= enemyDmg;
+    currentEnemy.hp -= fighterDmg;
+
+    if (currentFighter.hp <= 0) {
+        $("#fight-result").text(currentFighter.name + " has died. Game over.");
+        $(this).text("New Game");
+        fighterSelected = false;
+        updateHP();
+        playerDied = true;
+        return;
+    }
+
+    if (currentEnemy.hp <= 0) {
+        currentEnemy.hp = 0;
+        $("#fight-result").text(currentEnemy.name + " has been defeated");
+        enemySelected = false;
+        enemiesLeft--;
+        if (enemiesLeft === 0) {
+            playerWin = true;
+            $(this).text("New Game");
+        }
+        $("#enemy").animate({opacity:'0.0'});
+        //setEnemyPic("", "");
+        updateHP();
+        return;
+    }
+
+    currentFighter.attackPower += baseAtk;
+    updateHP();
+
+    $("#fighter-text").text(fighterStr);
+    $("#enemy-text").text(enemyStr);
 });
 
 /***********************************************************/
 
 $("#richter").on("click", function () {
+    if (playerDied) {
+        return;
+    }
     if (!fighterSelected) {
         currentFighter = setFighter(richter);
         return;
@@ -56,6 +122,9 @@ $("#richter").on("click", function () {
 });
 
 $("#alucard").on("click", function () {
+    if (playerDied) {
+        return;
+    }
     if (!fighterSelected) {
         currentFighter = setFighter(alucard);
         return;
@@ -68,6 +137,9 @@ $("#alucard").on("click", function () {
 });
 
 $("#death").on("click", function () {
+    if (playerDied) {
+        return;
+    }
     if (!fighterSelected) {
         currentFighter = setFighter(death);
         return;
@@ -80,6 +152,9 @@ $("#death").on("click", function () {
 });
 
 $("#dracula").on("click", function () {
+    if (playerDied) {
+        return;
+    }
     if (!fighterSelected) {
         currentFighter = setFighter(dracula);
         return;
@@ -98,6 +173,7 @@ function setFighterPic(id, path) {
 }
 
 function setEnemyPic(id, path) {
+    $("#enemy").animate({opacity:'1.0'});
     $("#enemy").attr("src", path);
     $(id).attr("src", " ");
 }
@@ -114,9 +190,12 @@ function setHeaderText() {
 }
 
 function setFighter(fighter) {
+    baseAtk = fighter.attackPower;
     setFighterPic(fighter.id, fighter.path);
     fighterSelected = true;
     setHeaderText();
+    $("#fighter-name").text(fighter.name);
+    $("#hp-fighter").text("HP: " + fighter.hp);
     return fighter;
 }
 
@@ -124,10 +203,24 @@ function setEnemy(enemy) {
     setEnemyPic(enemy.id, enemy.path);
     enemySelected = true;
     setHeaderText();
-    $(".game-hud").append('<button id="atk-btn">Attack!</button>');
+    $("#enemy-name").text(enemy.name);
+    $("#hp-enemy").text("HP: " + enemy.hp);
+    if (enemiesLeft === 3) {
+        $("#fighter-hud").append('<button id="atk-btn">Attack!</button>');
+    }
+    $("#fight-result").text("");
     return enemy;
 }
 
-function rand (min, max) {
+function updateHP() {
+    if (currentFighter.hp <= 0)
+        currentFighter.hp = 0;
+    if (currentEnemy.hp <= 0)
+        currentEnemy.hp = 0;
+    $("#hp-fighter").text("HP: " + currentFighter.hp);
+    $("#hp-enemy").text("HP: " + currentEnemy.hp);
+}
+
+function rand(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }

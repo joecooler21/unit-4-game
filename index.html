@@ -32,23 +32,26 @@
         </div>
         <div class="row play-area">
             <div class="col col-lg-4 col-md-4">
-                <img id="fighter" src="https://via.placeholder.com/200"></img>
+                <img id="fighter"></img>
+            </div>
+            <div class="vs-board col col-lg-4 col-md-4">
+                <h1 id="fighter-name"></h1>
+                <h1 id="vs">VS</h1>
+                <h1 id="enemy-name"></h1>
             </div>
             <div class="col col-lg-4 col-md-4">
-                <h1 class="vs">VS</h1>
-                <hr>
-                <div>Battle text goes here</div>
-            </div>
-            <div class="col col-lg-4 col-md-4">
-                <img id="enemy" src="https://via.placeholder.com/200"></img>
+                <img id="enemy"></img>
             </div>
         </div>
         <div class="row">
-            <div class="hp-fighter col col-lg-6 col-md-6">HP</div>
-            <div class="hp-enemy col col-lg-6 col-md-6">HP</div>
+            <div id="hp-fighter" class="col col-lg-6 col-md-6">HP</div>
+            <div id="hp-enemy" class="col col-lg-6 col-md-6">HP</div>
         </div>
         <div class="row game-hud">
-            <div class="col col-lg-12 col-md-12">
+            <div id="fighter-hud" class="col col-lg-6 col-md-6">
+            </div>
+            <div class="col col-lg-6 col-md-6">
+                <div id="battle-text"><p id="fighter-text"></p><p id="enemy-text"></p><p id="fight-result"><p></div>
             </div>
         </div>
     </div>
