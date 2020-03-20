@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets\css\reset.css">
     <link rel="stylesheet" href="assets\css\style.css">
     
@@ -18,16 +19,16 @@
         </div>
         <div class="row">
             <div class="col col-lg-3 col-md-3">
-                <img id="richter" src="assets\images\richter.jpg"></img>
+                <img id="richter" src="assets\images\richter.gif"></img>
             </div>
             <div class="col col-lg-3 col-md-3">
-                <img id="alucard" src="assets\images\alucard.jpg"></img>
+                <img id="alucard" src="assets\images\alucard.png"></img>
             </div>
         <div class="col col-lg-3 col-md-3">
         <img id="death" src="assets\images\death.jpg"></img>
     </div>
 <div class="col col-lg-3 col-md-3">
-<img id="dracula" src="assets\images\dracula.jpg"></img>
+<img id="dracula" src="assets\images\dracula.gif"></img>
 </div>
         </div>
         <div class="row play-area">
@@ -44,14 +45,28 @@
             </div>
         </div>
         <div class="row">
-            <div id="hp-fighter" class="col col-lg-6 col-md-6">HP</div>
-            <div id="hp-enemy" class="col col-lg-6 col-md-6">HP</div>
+            <div class="col col-lg-6 col-md-6">
+                <div class="progress">
+                <div id="hp-fighter" class="progress-bar hp-fighter-progress" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                aria-valuemax="100">
+                <div id="hp-fighter-text"></div>
+                </div>
+                </div>
+            </div>
+            <div class="col col-lg-6 col-md-6">
+                <div class="progress">
+                <div id="hp-enemy" class="progress-bar hp-enemy-progress" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                aria-valuemax="100">
+                <div id="hp-enemy-text"></div>
+                </div>
+                </div>
+            </div>
         </div>
         <div class="row game-hud">
             <div id="fighter-hud" class="col col-lg-6 col-md-6">
             </div>
             <div class="col col-lg-6 col-md-6">
-                <div id="battle-text"><p id="fighter-text"></p><p id="enemy-text"></p><p id="fight-result"><p></div>
+                <div id="battle-text"><p id="fighter-text"><hr></p><p id="enemy-text"></p><hr><p id="fight-result"><p></div>
             </div>
         </div>
     </div>

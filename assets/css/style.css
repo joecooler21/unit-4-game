@@ -1,7 +1,12 @@
 .header {
-    font-size: 50px;
+    font-size: 40px;
     border-style: solid;
-    border-width: 1px;
+    border-width: 5px;
+    padding: 10px;
+}
+
+body {
+    font-family: 'Press Start 2P', cursive;
 }
 
 .container {
@@ -11,13 +16,13 @@
 
 .play-area {
     border-style: solid;
-    border-width: 1px;
+    border-width: 5px;
     height: 250px;
     margin-top: 20px;
 }
 
 img {
-    width: 150px;
+    width: auto;
     height: 200px;
     margin-top: 20px;
 }
@@ -32,17 +37,22 @@ img {
     bottom: 40%;
     left: -1%;
     width: 100%;
-    font-size: 50px;
+    font-size: 45px;
     border-style: solid;
     border-right-width: 0px;
     border-left-width: 0px;
-    border-top-width: 1px;
-    border-bottom-width: 1px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+    padding-top: 3px;
 
 }
 
+#battle-text {
+    font-size: 10px;
+}
+
 #fighter-name, #enemy-name {
-    font-size: 40px;
+    font-size: 25px;
 }
 
 #fighter-name {
@@ -61,22 +71,41 @@ img {
 
 .game-hud {
     justify-content: center;
-    height: 100px;
+    height: 150px;
     border-style: solid;
-    border-width: 1px;
+    border-width: 5px;
     margin-top: 10px;
     padding-top: 15px;
 }
 
 #atk-btn {
-    font-size: 40px;
+    font-size: 15px;
     height: 50px;
     width: 200px;
 }
 
 #hp-fighter, #hp-enemy {
-    font-size: 25px;
-    border-style: solid;
-    border-width: 1px;
+    font-size: 15px;
     text-align: center;
+}
+
+.hp-enemy-progress {
+    background-color: red;
+}
+
+.progress {
+    background-color: black;
+}
+
+#hp-fighter-text, #hp-enemy-text {
+    color: white;
+    position: absolute;
+    left: 50%;
+    text-align: center;
+    right: 0;
+    left: 0;
+    top: 1px;
+    margin: 0;
+    padding: 0;
+
 }
